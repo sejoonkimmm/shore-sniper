@@ -1,0 +1,26 @@
+name = "shore-sniper"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[triggers]
+crons = ["* * * * *"]
+
+[[kv_namespaces]]
+binding = "STATE"
+id = "97ead7147baa42409753b468e070bd8e"
+preview_id = "c03441758cb44aacb046318e6e1ac441"
+
+# Runtime watch config (dates, dow, hours, service, resource) lives in KV and
+# is edited via the settings page at https://<worker>.workers.dev/?key=ADMIN_KEY.
+# These vars are only defaults/fallbacks.
+[vars]
+MERCHANT_ID = "07fe87fa-e905-4f69-b58e-19f37379e54f"
+MERCHANT_TZ = "Europe/Berlin"
+BOOKING_ORIGIN = "https://connect.shore.com"
+BOOKING_LOCALE = "en"
+SERVICE_ID = "bbebf5d0-1457-422e-83dc-8c4e05b98079"   # M.Iron perm (default)
+RESOURCE_ID = ""
+MIN_HOUR = "16"
+MAX_HOUR = "22"
+# Sub-polls per 1-minute cron invocation (spaced 20s) -> ~20s effective poll latency
+POLL_ITERATIONS = "3"
