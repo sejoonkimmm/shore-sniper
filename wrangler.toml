@@ -24,3 +24,7 @@ MIN_HOUR = "16"
 MAX_HOUR = "22"
 # Sub-polls per 1-minute cron invocation (spaced 20s) -> ~20s effective poll latency
 POLL_ITERATIONS = "3"
+
+# Workers AI: parses natural-language Telegram commands (src/nl.js)
+[ai]
+binding = "AI"

@@ -31,8 +31,11 @@ npm install
 npx wrangler kv namespace create STATE    # paste the id into wrangler.toml
 npx wrangler secret put ADMIN_KEY
 npx wrangler secret put CUSTOMER_FIRST_NAME   # also LAST_NAME, EMAIL, MOBILE, GENDER
+cp src/personal.example.js src/personal.js    # your own deadlines, gitignored
 npm run deploy
 ```
+
+Optional Telegram bot: create a bot with BotFather, then set `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` and `TELEGRAM_WEBHOOK_SECRET` as secrets and register `https://<worker>/telegram` with `setWebhook` and the same `secret_token`. The bot sends booking alerts, accepts commands (`status`, `on`, `off`, `check`) and parses free-text requests with Workers AI. Every config change needs a button confirmation.
 
 For local dev, create `.dev.vars` with the same keys, then:
 
@@ -43,6 +46,9 @@ npm run dev    # workerd locally, cron via /__scheduled
 ## Files
 
 - `src/index.js`: worker entry: cron handler, HTTP router, settings page
+- `src/nl.js`: turns Telegram text into a watch config (AI only returns an intent, dates and matching are plain code)
+- `src/reminders.js`: scheduled Telegram reminders and deadline alerts
+- `src/personal.js`: personal deadlines, gitignored (see `src/personal.example.js`)
 - `src/services.js`: service catalog for the salon (id, name, duration)
 - `wrangler.toml`: cron schedule, KV binding, non-secret defaults
 - `.dev.vars`: local secrets, gitignored. Production secrets go through `wrangler secret put` only.
